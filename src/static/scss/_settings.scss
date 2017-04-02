@@ -67,18 +67,18 @@ $default-transition-speed: 200ms;
 // $global-font-size: 100%;
 // $global-width: rem-calc(1200);
 // $global-lineheight: 1.5;
-// $foundation-palette: (
-//   primary: #2199e8,
-//   secondary: #777,
-//   success: #3adb76,
-//   warning: #ffae00,
-//   alert: #ec5840,
-// );
-// $light-gray: #e6e6e6;
+$foundation-palette: (
+  primary: $blue,
+  secondary: $blue-darker,
+  success: #3adb76,
+  warning: #ffae00,
+  alert: #ec5840,
+);
+$light-gray: $gray-cool;
 // $medium-gray: #cacaca;
 // $dark-gray: #8a8a8a;
 // $black: #0a0a0a;
-// $white: #fefefe;
+$white: #ffffff;
 // $body-background: $white;
 // $body-font-color: $black;
 $body-font-family: $font-family-sans;
@@ -87,7 +87,7 @@ $body-font-family: $font-family-sans;
 // $global-padding: 1rem;
 // $global-weight-normal: normal;
 // $global-weight-bold: bold;
-// $global-radius: 0;
+$global-radius: rem-calc(3px);
 // $global-text-direction: ltr;
 // $global-flexbox: false;
 // $print-transparent-backgrounds: true;
@@ -97,14 +97,15 @@ $body-font-family: $font-family-sans;
 // 2. Breakpoints
 // --------------
 
-// $breakpoints: (
-//   small: 0,
-//   medium: 640px,
-//   large: 1024px,
-//   xlarge: 1200px,
-//   xxlarge: 1440px,
-// );
-// $breakpoint-classes: (small medium large);
+$breakpoints: (
+  small: 0,
+  medsmall: 420px,
+  medium: 640px,
+  large: 1024px,
+  xlarge: 1200px,
+  xxlarge: 1440px,
+);
+$breakpoint-classes: (small medsmall medium large);
 
 // 3. The Grid
 // -----------

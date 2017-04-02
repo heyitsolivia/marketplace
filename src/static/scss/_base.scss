@@ -19,7 +19,7 @@ body {
 // Header
 
 .header {
-    background-color: $blue-darker;
+    background-color: $secondary-color;
     padding-bottom: 1rem;
     padding-top: 1.25rem;
 }
@@ -28,7 +28,7 @@ body {
 // Footer
 
 .footer {
-    background-color: $gray-cool;
+    background-color: $light-gray;
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
@@ -37,11 +37,15 @@ body {
 // Logo
 
 .logo {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: -0.5px;
     line-height: 1;
-    padding: 0.5rem;
+    padding: 0.25rem;
+
+    @include breakpoint(medsmall) {
+        font-size: 1.25rem;
+    }
 }
 
 .logo:focus {
@@ -58,3 +62,26 @@ body {
     .logo__type {
         color: $white;
     }
+
+
+// Buttons
+
+.button {
+    border: 2px solid $primary-color;
+    background-color: $primary-color;
+    color: $white;
+    padding:  0.5em 0.75em;
+    font-weight: 700;
+}
+
+.button--hollow {
+    background-color: transparent;
+    border-color: $white;
+    color: $white;
+    transition: all $default-transition-speed;
+
+    &:hover {
+        border-color: $light-gray;
+        color: $light-gray;
+    }
+}
