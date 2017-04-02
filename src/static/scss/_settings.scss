@@ -1,6 +1,21 @@
 //  Marketplace Mock Settings
 //  -----------------------------
 
+// Typography
+$merriweather: 'Merriweather';
+$source-sans: 'Source Sans Pro';
+$font-family-serif: $merriweather, Georgia, Times, serif;
+$font-family-sans: $source-sans, Helvetica, Roboto, Arial, sans-serif;
+
+// Colors
+$blue: #0071bc;
+$blue-darker: #205493;
+$gray-cool: #dce4ef;
+
+
+// Animations and Transitions
+$default-transition-speed: 200ms;
+
 
 //  Foundation for Sites Settings
 //  -----------------------------
@@ -66,7 +81,7 @@
 // $white: #fefefe;
 // $body-background: $white;
 // $body-font-color: $black;
-// $body-font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+$body-font-family: $font-family-sans;
 // $body-antialiased: true;
 // $global-margin: 1rem;
 // $global-padding: 1rem;
