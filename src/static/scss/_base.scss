@@ -85,3 +85,49 @@ body {
         color: $light-gray;
     }
 }
+
+
+// Typograhy
+
+// Headings
+.heading {
+    font-family: $font-family-serif;
+}
+
+.heading--large {
+    font-size: 1.875rem;
+    font-weight: 700;
+
+    @include breakpoint(medium) {
+        font-size: 2.25rem;
+    }
+
+    @include breakpoint(large) {
+        font-size: 2.5rem;
+    }
+}
+
+.heading--small {
+    font-size: 1rem;
+
+    @include breakpoint(medium) {
+        font-size: 1.125rem;
+    }
+
+    @include breakpoint(large) {
+        font-size: 1.25rem;
+    }
+}
+
+
+// Hero
+.hero {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: $light-gray;
+}
+
+.section {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
