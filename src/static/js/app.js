@@ -52,6 +52,33 @@ const overviewTemplate = `
 </section>
 `
 
+const formTemplate = `
+<form>
+    <div class="row">
+        <div class="medium-4 columns">
+            <label>Full Name
+                <input v-model="fullName" type="text" placeholder="Your full name">
+            </label>
+        </div>
+        <div class="medium-4 columns">
+            <label>Description
+                <input v-model="description" type="text" placeholder="Your role">
+            </label>
+        </div>
+        <div class="medium-4 columns">
+            <label>Favorite Fruit
+                <input v-model="favoriteFruit" type="text" placeholder="Apple">
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="medium-12 columns">
+            <button v-on:click="submit" class="button float-right">Add member</button>
+        </div>
+    </div>
+</form>
+`
+
 // Components
 Vue.component('hero-component', {
   props: ['title', 'description'],
@@ -61,6 +88,39 @@ Vue.component('hero-component', {
 Vue.component('overview-component', {
   props: ['household'],
   template: overviewTemplate
+})
+
+Vue.component('form-component', {
+  data: function () {
+    return {
+      fullName: '',
+      description: '',
+      favoriteFruit: '',
+    }
+  },
+  computed: {
+    cleanFullName: function() {
+      return this.fullName.trim()
+    },
+    cleanDescription: function() {
+      return this.description.trim()
+    },
+    cleanFavoriteFruit: function() {
+      return this.favoriteFruit.trim()
+    },
+  },
+
+  template: formTemplate,
+  methods: {
+      submit() {
+        const member = {}
+        member.fullName = this.cleanFullName
+        member.description = this.cleanDescription
+        member.favoriteFruit = this.cleanFavoriteFruit
+
+        this.$emit('update', [member])
+      }
+  }
 })
 
 
@@ -87,7 +147,12 @@ domready(() => {
     router: router,
     data: {
       householdData
-    }
+    },
+    methods: {
+      updateData(member) {
+        this.householdData.push(member[0])
+      }
+    },
   })
 })
 
