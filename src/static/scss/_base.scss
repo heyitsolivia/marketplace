@@ -72,6 +72,10 @@ body {
     color: $white;
     padding:  0.5em 0.75em;
     font-weight: 700;
+
+    .icon {
+        margin-left: 0.25rem;
+    }
 }
 
 .button--hollow {

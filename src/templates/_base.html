@@ -11,8 +11,33 @@
         <script src="/static/js/bundle.js" async defer></script>
     </head>
     <body>
+        <header class="header">
+            <div class="row">
+                <div class="small-8 columns">
+                    <a class="logo" href="/" title="Home" aria-label="Home">
+                        <svg class="logo__icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                          <path fill="#ffffff" d="M16 32C7.2 32 0 24.8 0 16S7.2 0 16 0s16 7.2 16 16-7.2 16-16 16zm0-30C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2z"/>
+                          <path fill="#ffffff" d="M16 22h-6v-4h6v4zm9-4v-2l-1-5H8l-1 5v2h1v6h10v-6h4v6h2v-6h1zM24 8H8v2h16V8z"/>
+                        </svg>
+                        <span class="logo__type">The&nbsp;Marketplace</span>
+                    </a>
+                </div>
+                <div class="small-4 columns">
+                    <button class="button button--hollow float-right">Log out</button>
+                </div>
+            </div>
+        </header>
+
         {% block content %}
         {% endblock %}
+
+        <footer class="footer">
+            <div class="row">
+                <div class="columns">
+                    <span>The Marketplace is a work in progress.</span>
+                </div>
+            </div>
+        </footer>
 
         {% block javascripts %}
         {% endblock %}
