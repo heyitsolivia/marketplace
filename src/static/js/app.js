@@ -86,7 +86,10 @@ const formTemplate = `
     </div>
     <div class="row">
         <div class="medium-12 columns">
-            <button v-on:click="submit" class="button float-right">Add member</button>
+            <div class="float-right">
+                <button v-on:click="cancel" class="button">Cancel</button>
+                <button v-on:click="submit" class="button">Add member</button>
+            </div>
         </div>
     </div>
 </form>
@@ -129,21 +132,24 @@ const Form = Vue.component('form-component', {
   },
   template: formTemplate,
   methods: {
-      resetForm() {
-        this.fullName = '';
-        this.description = '';
-        this.favoriteFruit = '';
-      },
-      submit() {
-        const member = {}
-        member.fullName = this.cleanFullName
-        member.description = this.cleanDescription
-        member.favoriteFruit = this.cleanFavoriteFruit
+    resetForm() {
+      this.fullName = '';
+      this.description = '';
+      this.favoriteFruit = '';
+    },
+    submit() {
+      const member = {}
+      member.fullName = this.cleanFullName
+      member.description = this.cleanDescription
+      member.favoriteFruit = this.cleanFavoriteFruit
 
-        store.commit('addMember', member)
-        this.resetForm()
-        router.push({ name: 'household' })
-      }
+      store.commit('addMember', member)
+      this.resetForm()
+      router.push({ name: 'household' })
+    },
+    cancel() {
+      router.push({ name: 'household' })
+    }
   }
 })
 
