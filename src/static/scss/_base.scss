@@ -135,3 +135,15 @@ body {
     margin-top: 3rem;
     margin-bottom: 3rem;
 }
+
+
+
+// Vue Animations
+
+.fade-enter-active {
+    transition: opacity 500ms
+}
+
+.fade-enter {
+    opacity: 0
+}

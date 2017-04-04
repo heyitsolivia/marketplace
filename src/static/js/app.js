@@ -35,7 +35,7 @@ const summaryTemplate = `
 <section class="section">
     <div class="row">
         <div class="small-12 columns">
-            <router-link tag="button" :to="{ name: 'member'}" class="button float-right">
+            <router-link tag="button" :to="{ name: 'addMember'}" class="button float-right">
                 Add new member
                 <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16">
                   <circle fill="#ffffff" cx="14" cy="4" r="4"/>
@@ -158,7 +158,8 @@ const Form = Vue.component('form-component', {
 const router = new VueRouter({
   routes: [
     { path: '/household', name: 'household', component: Summary, alias: '/' },
-    { path: '/member', name: 'member', component: Form }
+    { path: '/member/new', name: 'addMember', component: Form },
+    { path: '/member/edit', name: 'updateMember', component: Form }
   ]
 })
 
