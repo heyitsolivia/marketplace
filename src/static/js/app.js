@@ -1,11 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 import domready from 'domready'
 
 import { householdData } from './data'
 
 
 Vue.use(VueRouter)
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state: {
+    household: householdData
+  },
+  mutations: {
+    addMember(state, member) {
+      state.household.push(member)
+    }
+  }
+})
 
 const heroTemplate = `
   <section class="hero">
@@ -18,17 +31,17 @@ const heroTemplate = `
   </section>
 `
 
-const overviewTemplate = `
+const summaryTemplate = `
 <section class="section">
     <div class="row">
         <div class="small-12 columns">
-            <button class="button float-right">
+            <router-link tag="button" :to="{ name: 'member'}" class="button float-right">
                 Add new member
                 <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16">
                   <circle fill="#ffffff" cx="14" cy="4" r="4"/>
                   <path fill="#ffffff" d="M5 6V3H3v3H0v2h3v3h2V8h3V6M14 10c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4z"/>
                 </svg>
-            </button>
+            </router-link>
 
             <table class="table">
                 <thead>
@@ -85,12 +98,17 @@ Vue.component('hero-component', {
   template: heroTemplate
 })
 
-Vue.component('overview-component', {
-  props: ['household'],
-  template: overviewTemplate
+// Route Components
+const Summary = Vue.component('summary-component', {
+  computed: {
+    household() {
+      return this.$store.state.household
+    }
+  },
+  template: summaryTemplate
 })
 
-Vue.component('form-component', {
+const Form = Vue.component('form-component', {
   data: function () {
     return {
       fullName: '',
@@ -109,50 +127,42 @@ Vue.component('form-component', {
       return this.favoriteFruit.trim()
     },
   },
-
   template: formTemplate,
   methods: {
+      resetForm() {
+        this.fullName = '';
+        this.description = '';
+        this.favoriteFruit = '';
+      },
       submit() {
         const member = {}
         member.fullName = this.cleanFullName
         member.description = this.cleanDescription
         member.favoriteFruit = this.cleanFavoriteFruit
 
-        this.$emit('update', [member])
+        store.commit('addMember', member)
+        this.resetForm()
+        router.push({ name: 'household' })
       }
   }
 })
 
 
-
-// Route Components
-const Foo = { template: '<div>Foo</div>' }
-const Bar = { template: '<div>Bar</div>' }
-
-// Define Routes
-const routes = [
-  { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar }
-]
-
 // Create router instance
 const router = new VueRouter({
-  routes: routes
+  routes: [
+    { path: '/household', name: 'household', component: Summary, alias: '/' },
+    { path: '/member', name: 'member', component: Form }
+  ]
 })
 
 // Create and mount the root instance
 domready(() => {
   new Vue({
     el: '#app',
-    router: router,
-    data: {
-      householdData
-    },
-    methods: {
-      updateData(member) {
-        this.householdData.push(member[0])
-      }
-    },
+    store,
+    router,
+    methods: {},
   })
 })
 

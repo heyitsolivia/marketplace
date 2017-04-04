@@ -9,17 +9,6 @@
         description="Welcome to the Marketplace! Review your household below.">
     </hero-component>
 
-    <overview-component
-        v-bind:household="householdData">
-    </overview-component>
-
-    <form-component v-on:update="updateData"></form-component>
-
-    <p>
-        <router-link to="/foo">Go to Foo</router-link> |
-        <router-link to="/bar">Go to Bar</router-link>
-    </p>
-
     <router-view></router-view>
 
 </main>
