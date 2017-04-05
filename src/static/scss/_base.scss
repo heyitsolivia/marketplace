@@ -72,9 +72,32 @@ body {
     color: $white;
     padding:  0.5em 0.75em;
     font-weight: 700;
+    transition: background-color $default-transition-speed, border-color $default-transition-speed;
 
     .icon {
         margin-left: 0.25rem;
+    }
+
+    &:hover {
+        background-color: lighten($primary-color, 5%);
+        border-color: lighten($primary-color, 5%);
+    }
+}
+
+.button + .button {
+    margin-left: 1rem;
+}
+
+.button--ghost {
+    background-color: transparent;
+    color: $primary-color;
+    transition: opacity $default-transition-speed;
+    opacity: 1;
+
+    &:hover {
+        opacity: 0.65;
+        background-color: inherit;
+        border-color: inherit;
     }
 }
 
@@ -112,23 +135,26 @@ body {
 }
 
 .heading--small {
-    font-size: 1rem;
+    // font-size: 1rem;
 
-    @include breakpoint(medium) {
+    // @include breakpoint(medium) {
         font-size: 1.125rem;
-    }
+    // }
 
     @include breakpoint(large) {
         font-size: 1.25rem;
     }
 }
 
+small {
+    font-size: 0.875rem;
+}
 
 // Hero
 .hero {
     padding-top: 3rem;
     padding-bottom: 3rem;
-    background-color: $light-gray;
+    background-color: #F1F8FF;
 }
 
 .section {
@@ -136,7 +162,65 @@ body {
     margin-bottom: 3rem;
 }
 
+// Forms
+.form {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
 
+.form__section {
+    border-bottom: 1px solid $light-gray;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form__label {
+    @extend .heading--small;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.input {
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+    box-shadow: none;
+
+    @include breakpoint(large) {
+        margin-top: 0;
+    }
+}
+
+
+// Table
+.table {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    thead {
+        border: 0;
+        background: none;
+    }
+    tbody {
+        border: 0;
+    }
+    tbody tr:nth-child(even) {
+        background: none;
+    }
+
+    tr {
+        border-bottom: 1px solid #eee;
+    }
+
+    th, td {
+        padding: 1rem 0.5rem;
+    }
+
+    .primary-cell {
+        @include breakpoint(medium) {
+            width: 50%;
+        }
+    }
+}
 
 // Vue Animations
 
@@ -146,4 +230,14 @@ body {
 
 .fade-enter {
     opacity: 0
+}
+
+
+// Errors
+.input.is-invalid {
+    border-color: $alert-color;
+}
+
+.error.is-invalid {
+    color: $alert-color;
 }

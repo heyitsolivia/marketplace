@@ -48,6 +48,7 @@
     "stylelint-config-standard": "11.0.0",
     "stylelint-selector-bem-pattern": "1.0.0",
     "uglifyify": "3.0.1",
+    "vee-validate": "^2.0.0-beta.25",
     "vinyl-buffer": "1.0.0",
     "vinyl-source-stream": "1.1.0",
     "vue": "2.2.6",
