@@ -16,10 +16,13 @@ const store = new Vuex.Store({
     household: householdData
   },
   mutations: {
-    addMember(state, member) {
+    addMember (state, member) {
       state.household.push(member)
-    }
-  }
+    },
+    updateMember (state, payload) {
+      state.household.splice(payload.index, 1, payload.member)
+    },
+  },
 })
 
 const heroTemplate = `
@@ -57,11 +60,15 @@ const summaryTemplate = `
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="member in household">
-                        <td class="primary-cell">{{ member.fullName }}</td>
-                        <td>{{ member.description }}</td>
-                        <td>{{ member.favoriteFruit }}</td>
-                    </tr>
+                        <router-link tag="tr" :to="{ name: 'editMember', params: { id: index } }" v-for="(member, index) in household">
+                            <td class="primary-cell">
+                                <router-link :to="{ name: 'editMember', params: { id: index } }">
+                                    {{ member.fullName }}
+                                </router-link>
+                            </td>
+                            <td>{{ member.description }}</td>
+                            <td>{{ member.favoriteFruit }}</td>
+                        </router-link>
                 </tbody>
             </table>
 
@@ -79,7 +86,7 @@ const formTemplate = `
                 <small>The full name as inscribed upon legal documents.</small>
             </div>
             <div class="small-11 medium-8 large-6 columns">
-                <input v-model="fullName" v-validate="'required'" :class="{'input': true, 'is-invalid': errors.has('name') }" name="name" type="text" placeholder="First and last name">
+                <input v-model="fullName" v-validate="'required'" :class="{'input': true, 'is-invalid': errors.has('name') }" name="name" type="text" placeholder="Full legal name">
                 <span v-show="errors.has('name')" class="error is-invalid">{{ errors.first('name') }}</span>
             </div>
         </div>
@@ -113,7 +120,7 @@ const formTemplate = `
             <div class="small-11 medium-8 large-10 columns">
                 <div class="float-right">
                     <button type="button" v-on:click="onCancel" class="button button--ghost">Cancel</button>
-                    <button type="submit" class="button">Add member</button>
+                    <button type="submit" class="button">{{ actionWord }} member</button>
                 </div>
             </div>
         </div>
@@ -138,11 +145,23 @@ const Summary = Vue.component('summary-component', {
 })
 
 const Form = Vue.component('form-component', {
+  props: ['action'],
   data: function () {
-    return {
-      fullName: '',
-      description: '',
-      favoriteFruit: '',
+    if (this.action === "add") {
+      return {
+        fullName: '',
+        description: '',
+        favoriteFruit: '',
+        actionWord: 'Add'
+      }
+    }
+    if (this.action === "edit") {
+      return {
+        fullName: this.$store.state.household[this.$route.params.id].fullName,
+        description: this.$store.state.household[this.$route.params.id].description,
+        favoriteFruit: this.$store.state.household[this.$route.params.id].favoriteFruit,
+        actionWord: 'Update'
+      }
     }
   },
   computed: {
@@ -166,7 +185,7 @@ const Form = Vue.component('form-component', {
     validateBeforeSubmit() {
       this.$validator.validateAll().then(() => {
         this.onSubmit()
-        console.log('validated')
+        // console.log('validated')
       }).catch(() => {
         // console.log('There were errors in the form.')
       });
@@ -177,7 +196,18 @@ const Form = Vue.component('form-component', {
         member.description = this.cleanDescription
         member.favoriteFruit = this.cleanFavoriteFruit
 
-        store.commit('addMember', member)
+        if (this.action === "add") {
+          store.commit('addMember', member)
+        }
+
+        if (this.action === "edit") {
+          const payload = {
+            index: this.$route.params.id,
+            member: member
+          }
+          store.commit('updateMember', payload)
+        }
+
         this.resetForm()
         router.push({ name: 'household' })
     },
@@ -207,12 +237,27 @@ const router = new VueRouter({
       components: { header: Hero, content: Form },
       props: {
         header: {
-          title: "Add a Member",
+          title: "Add Member",
           description: "Add another person to your household to recieve marketplace benefits."
+        },
+        content: {
+          action: "add"
         }
       }
     },
-    { path: '/member/edit', name: 'updateMember', component: Form },
+    {
+      path: '/member/:id/edit', name: 'editMember',
+      components: { header: Hero, content: Form },
+      props: {
+        header: {
+          title: "Update Member",
+          description: "Update this member's information."
+        },
+        content: {
+          action: "edit"
+        }
+      }
+    },
   ]
 })
 

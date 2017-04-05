@@ -211,6 +211,10 @@ small {
         border-bottom: 1px solid #eee;
     }
 
+    tbody tr:hover {
+        background-color: #fafafa;
+        cursor: pointer;
+    }
     th, td {
         padding: 1rem 0.5rem;
     }
