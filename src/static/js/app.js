@@ -121,13 +121,13 @@ const formTemplate = `
 </form>
 `
 
-// Components
-Vue.component('hero-component', {
+// Route Components
+
+const Hero = Vue.component('hero-component', {
   props: ['title', 'description'],
   template: heroTemplate
 })
 
-// Route Components
 const Summary = Vue.component('summary-component', {
   computed: {
     household() {
@@ -191,9 +191,28 @@ const Form = Vue.component('form-component', {
 // Create router instance
 const router = new VueRouter({
   routes: [
-    { path: '/household', name: 'household', component: Summary, alias: '/' },
-    { path: '/member/new', name: 'addMember', component: Form },
-    { path: '/member/edit', name: 'updateMember', component: Form }
+    {
+      path: '/household', name: 'household',
+      components: { header: Hero, content: Summary },
+      props: {
+        header: {
+          title: "Your Household",
+          description: "Welcome to the Marketplace! Review your household below."
+        }
+      },
+      alias: '/',
+    },
+    {
+      path: '/member/new', name: 'addMember',
+      components: { header: Hero, content: Form },
+      props: {
+        header: {
+          title: "Add a Member",
+          description: "Add another person to your household to recieve marketplace benefits."
+        }
+      }
+    },
+    { path: '/member/edit', name: 'updateMember', component: Form },
   ]
 })
 
