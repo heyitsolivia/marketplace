@@ -71,7 +71,7 @@ gulp.task('minify:html', () =>
 gulp.task('minify:css', () =>
   gulp.src('public/**/*-*.css')
     .pipe(cleancss())
-    .pipe(header(BANNER))
+    // .pipe(header(BANNER))
     .pipe(gulp.dest('public/')))
 
 gulp.task('minify:js', () =>
@@ -82,7 +82,7 @@ gulp.task('minify:js', () =>
         screw_ie8: true,
       },
       output: {
-        preamble: BANNER,
+        // preamble: BANNER,
       },
     }))
     .pipe(gulp.dest('public/')))
